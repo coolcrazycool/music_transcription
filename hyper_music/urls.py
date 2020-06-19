@@ -21,9 +21,13 @@ from django.conf import settings
 from music_api import views
 
 urlpatterns = [
+    path('register/', views.registerPage, name='register'),
+    path('login/', views.loginPage, name='login'),
+    path('logout/', views.logoutUser, name='logout'),
+
     path('admin/', admin.site.urls),
     path('upload/', views.upload, name='upload'),
-    path('', views.Home.as_view(), name='home')
+    path('', views.home, name='home')
 ]
 
 if settings.DEBUG:

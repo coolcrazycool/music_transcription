@@ -8,6 +8,15 @@
   <title>{% block title %}My Site{% endblock %}</title>
 </head>
 <body>
+
+  <style>
+      .hello-msg{
+          font-size: 18px;
+          color: cadetblue;
+          margin-right: 20px;
+      }
+  </style>
+
   <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color:#decdc3">
     <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}">My Site</a>
@@ -20,10 +29,12 @@
             <a class="nav-link" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'upload' %}">Simple Upload</a>
+            <a class="nav-link" href="{% url 'upload' %}">Upload</a>
           </li>
         </ul>
       </div>
+      <span class="hello-msg">{{ request.user }}</span>
+      <span><a class="hello-msg" href="{% url 'logout' %}">Выйти</a></span>
     </div>
   </nav>
   <div class="container">
