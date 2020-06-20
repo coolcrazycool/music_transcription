@@ -39,7 +39,7 @@ MIN_NOTE = 16  # Минимальная длительность будет пр
 NOIZE_FILTER_TIME = 0  # Это учёт возможного шума или неточностей декодирования.
 NOIZE_FILTER_PAUSE = 4
 BASE_NOTE = 60
-PATH_TO_PDF = "../media/pdf/"
+PATH_TO_PDF = "../media/pdf/temp/"
 
 
 # Исходя из того, что длительность звука не может быть равной 50мс или 25мс,
@@ -112,6 +112,7 @@ class Notes:
                         abjad.attach(tie, self.notes[len(self.notes) - 1])
                     del tie
         abjad.persist(self.notes).as_pdf(''.join([PATH_TO_PDF, filename]))
+        return filename
         # abjad.show(self.notes)
         # abjad.IOManager.save_last_pdf_as(r"../sound.pdf")
 

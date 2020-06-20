@@ -28,7 +28,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('upload/', views.upload, name='upload'),
-    path('', views.home, name='home')
+    path('', views.home, name='home'),
 ]
 
 if settings.DEBUG:

@@ -18,7 +18,3 @@ class Melody(models.Model):
 
     def __str__(self):
         return self.name
-
-# class PDF(models.Model):
-#     melody = models.OneToOneField(Melody, on_delete=models.SET_NULL)
-#     name = models.CharField

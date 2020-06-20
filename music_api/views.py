@@ -6,10 +6,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.decorators import login_required
+import tempfile
 
 # Own views are here
 from .forms import MelodyForm, CreateUserForm
-# from app_code.models import Melody, Notes
+from app_code.models import Notes
 from music_api.models import Melody
 
 
@@ -79,8 +80,12 @@ def upload(request):
             melody_pr.user = request.user
             melody_pr.status = 'Uploaded'
             form.save()
+            temp_folder = tempfile.TemporaryDirectory(dir='../media/pdf/temp/')
+            obj = Melody.objects.latest()
+            pdf = Notes(f'../media/{obj.melody}')
+            obj.pdf.name = f'../media/pdf/temp/{pdf}'
+            temp_folder.cleanup()
+            obj.save()
             return redirect('profile')
-        else:
-            return redirect('home')
 
     return render(request, 'upload.html', {'form': form})

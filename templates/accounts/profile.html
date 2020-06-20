@@ -14,7 +14,6 @@
                         <th>WAV</th>
                         <th>Статус</th>
                         <th>PDF</th>
-                        <th>Конвертировать</th>
                     </tr>
                     {% for melody in melodys %}
                         <tr>
@@ -27,7 +26,6 @@
                             {% else %}
                                 <td>Не сконвертирован</td>
                             {% endif %}
-                            <td><button type="submit">Конвертировать</button></td>
                         </tr>
                     {% endfor %}
                 </table>
