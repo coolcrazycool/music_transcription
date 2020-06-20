@@ -39,6 +39,7 @@ MIN_NOTE = 16  # Минимальная длительность будет пр
 NOIZE_FILTER_TIME = 0  # Это учёт возможного шума или неточностей декодирования.
 NOIZE_FILTER_PAUSE = 4
 BASE_NOTE = 60
+PATH_TO_PDF = "../media/pdf/"
 
 
 # Исходя из того, что длительность звука не может быть равной 50мс или 25мс,
@@ -50,8 +51,8 @@ class Notes:
     def __init__(self, melody):
         self.freqList = []
         self.filterData = []
-        self.notes = abjad.Container()
         self.data = []
+        self.notes = abjad.Container()
         self.inputData = deepcopy(melody.data)
         # self.freqList = []
         # for i, sound in enumerate(melody.data):
@@ -87,7 +88,7 @@ class Notes:
     def __str__(self):
         return str(self.data)
 
-    def converteToPdf(self):
+    def converteToPdf(self, filename):
         # this function will use special lib ans converte markuped array to really Notes notation, then it saves it
         # as pdf
         for note in self.data:
@@ -110,7 +111,9 @@ class Notes:
                         self.notes.append(abjad.Note(note[0] - BASE_NOTE, abjad.Duration(t, MIN_NOTE)))
                         abjad.attach(tie, self.notes[len(self.notes) - 1])
                     del tie
-        abjad.show(self.notes)
+        abjad.persist(self.notes).as_pdf(''.join([PATH_TO_PDF, filename]))
+        # abjad.show(self.notes)
+        # abjad.IOManager.save_last_pdf_as(r"../sound.pdf")
 
     def abj_duration(self, time):  # сделано под 16!!!
         if time > MIN_NOTE:
@@ -133,8 +136,7 @@ class Notes:
             counter -= MIN_NOTE
         return False, one_long
 
-    @staticmethod
-    def strange_rythm(time):  # сделано под 16!!!
+    def strange_rythm(self, time):  # сделано под 16!!!
         if time < 9:
             first = int(time / 2) * 2
             second = time - first

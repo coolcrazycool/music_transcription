@@ -62,12 +62,25 @@ def logoutUser(request):
 
 
 @login_required(login_url='login')
+def profilePage(request):
+    melodys = Melody.objects.filter(user=request.user.id)
+    return render(request, 'accounts/profile.html', {'melodys': melodys})
+
+
+@login_required(login_url='login')
 def upload(request):
+    form = MelodyForm()
     if request.method == 'POST':
-        uploaded_file = request.FILES['document']
-        # array = Melody(uploaded_file)
-        # array.dataToArray()
-        # pdf = Notes(array).converteToPdf()
-        fs = FileSystemStorage()
-        fs.save(uploaded_file.name, uploaded_file)
-    return render(request, 'upload.html')
+        form = MelodyForm(request.POST, request.FILES)
+        if form.is_valid():
+            melody_pr = form.save(commit=False)
+            melody_pr.melody = request.FILES['melody']
+            melody_pr.name = request.POST['name']
+            melody_pr.user = request.user
+            melody_pr.status = 'Uploaded'
+            form.save()
+            return redirect('profile')
+        else:
+            return redirect('home')
+
+    return render(request, 'upload.html', {'form': form})

@@ -51,9 +51,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'hyper_music.urls'
-parent_dir = os.path.abspath(os.path.dirname(__file__) + '/..')
-MEDIA_ROOT = os.path.join(parent_dir, 'media/')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TEMPLATES = [
     {

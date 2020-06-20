@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br>
+    <div class="row">
+        <div class="col-md">
+            <div>
+                <h5>Список записей:</h5>
+            </div>
+            <div>
+                <table class="table">
+                    <tr>
+                        <th>Название</th>
+                        <th>WAV</th>
+                        <th>Статус</th>
+                        <th>PDF</th>
+                        <th>Конвертировать</th>
+                    </tr>
+                    {% for melody in melodys %}
+                        <tr>
+                            <td>{{ melody.name }}</td>
+                            <td><a href="http://127.0.0.1:8000/media/{{ melody.melody }}">Скачать</a></td>
+                            <td>{{ melody.status }}</td>
+                            {% if melody.pdf %}
+                                <td><a href="http://127.0.0.1:8000/media/{{ melody.pdf }}">Скачать</a></td>
+
+                            {% else %}
+                                <td>Не сконвертирован</td>
+                            {% endif %}
+                            <td><button type="submit">Конвертировать</button></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
