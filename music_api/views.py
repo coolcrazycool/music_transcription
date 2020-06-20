@@ -7,10 +7,11 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.decorators import login_required
 import tempfile
+from hyper_music.settings import MEDIA_ROOT
 
 # Own views are here
 from .forms import MelodyForm, CreateUserForm
-from app_code.models import Notes
+from app_code.models import Notes, CodeMelody
 from music_api.models import Melody
 
 
@@ -80,11 +81,13 @@ def upload(request):
             melody_pr.user = request.user
             melody_pr.status = 'Uploaded'
             form.save()
-            temp_folder = tempfile.TemporaryDirectory(dir='../media/pdf/temp/')
-            obj = Melody.objects.latest()
-            pdf = Notes(f'../media/{obj.melody}')
-            obj.pdf.name = f'../media/pdf/temp/{pdf}'
-            temp_folder.cleanup()
+            obj = Melody.objects.latest('id')
+            NOTES = CodeMelody(f'{MEDIA_ROOT}/{obj.melody}')
+            data = NOTES.dataToArray()
+            PDF = Notes(data)
+            pdf = PDF.converteToPdf(f'{obj.melody}'.split('/')[-1].split('.')[0])
+            obj.pdf.name = f'pdf/{pdf}.pdf'
+            obj.status = 'Converted'
             obj.save()
             return redirect('profile')
 

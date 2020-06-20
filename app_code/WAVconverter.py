@@ -1,9 +1,13 @@
-import librosa
+from scipy.io import wavfile
 from collections import deque
+from scipy.fft import fft, ifft
+import numpy as np
+# from scipy import signal
+# from matplotlib import pyplot as plt
 # import pandas as pd
 
 # путь к рандомному файлу
-audio_way = '../dataset/test3.wav'
+audio_way = '../dataset/sound.wav'
 # время одного сегмента
 segment_time = 0.05
 
@@ -48,23 +52,61 @@ notesList = [[40, 80, 84],
 
 def segmentation(audio, sr):
     frame_length = round(sr * segment_time)
-    frames = librosa.util.frame(audio, frame_length=frame_length, hop_length=frame_length, axis=0)
+    segments = len(audio) // frame_length
+    frames = []
+    for i in range(segments):
+        frames.append(list(audio[frame_length*i:frame_length*i+frame_length]))
+    frames = np.array(frames)
     return frames
 
 
-def estimate_pitch(segment, sr, fmin=10.0, fmax=1000.0):
+# def base_spectrogram(audio_path):
+#     sr, audio = wavfile.read(audio_path)
+#     audio = np.array(audio[:, 0]).transpose()
+#     frequencies, times, spectrogram = signal.spectrogram(audio, sr)
+#     plt.pcolormesh(times, frequencies, spectrogram)
+#     plt.imshow(spectrogram)
+#     plt.ylabel('Frequency [Hz]')
+#     plt.xlabel('Time [sec]')
+#     plt.show()
+#     plt.axis('off')
+#     plt.savefig(f'../temp_spectrogramm/{audio_path[11:]}.png')
+#     plt.close()
 
+
+def estimate_pitch(y, sr, fmin=10.0, fmax=1000.0):
+    max_size = None
+    axis = -1
     # Compute autocorrelation of input segment.
-    r = librosa.autocorrelate(segment)
+    if max_size is None:
+        max_size = y.shape[axis]
+
+    max_size = int(min(max_size, y.shape[axis]))
+
+    # Compute the power spectrum along the chosen axis
+    # Pad out the signal to support full-length auto-correlation.
+    powspec = np.abs(fft(y, n=2 * y.shape[axis] + 1, axis=axis)) ** 2
+
+    # Convert back to time domain
+    autocorr = ifft(powspec, axis=axis)
+
+    # Slice down to max_size
+    subslice = [slice(None)] * autocorr.ndim
+    subslice[axis] = slice(max_size)
+
+    autocorr = autocorr[tuple(subslice)]
+
+    if not np.iscomplexobj(y):
+        autocorr = autocorr.real
 
     # Define lower and upper limits for the autocorrelation argmax.
     i_min = sr / fmax
     i_max = sr / fmin
-    r[:int(i_min)] = 0
-    r[int(i_max):] = 0
+    autocorr[:int(i_min)] = 0
+    autocorr[int(i_max):] = 0
 
     # Find the location of the maximum autocorrelation.
-    i = r.argmax()
+    i = autocorr.argmax()
     f0 = float(sr) / i
     return f0
 
@@ -83,7 +125,8 @@ def matrix_converter(data):
 
 
 def audio_analyzer(audio_path):
-    audio, sr = librosa.load(audio_path)
+    sr, audio = wavfile.read(audio_path)
+    audio = np.array(audio[:, 0]).transpose()
     frames = segmentation(audio, sr)
     data = deque()
     for frame in frames:
@@ -99,4 +142,6 @@ def audio_analyzer(audio_path):
 
 
 if __name__ == '__main__':
-    print(audio_analyzer('../dataset/test2.wav'))
+    print(audio_analyzer('../dataset/test3.wav'))
+    # base_spectrogram('../dataset/sound.wav')
+

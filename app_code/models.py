@@ -2,19 +2,20 @@ from copy import deepcopy
 
 import abjad
 from .WAVconverter import audio_analyzer
+from hyper_music.settings import MEDIA_ROOT
 
 
 # import mingus.extra
 # from mingus.containers import Bar
 
 
-class Melody:
+class CodeMelody:
     def __init__(self, path):
         self.path = path
         self.data = None
 
     def dataToArray(self):
-        self.data = audio_analyzer(self.path)
+        return audio_analyzer(self.path)
 
     def __str__(self):
         return str(self.data)
@@ -39,7 +40,7 @@ MIN_NOTE = 16  # Минимальная длительность будет пр
 NOIZE_FILTER_TIME = 0  # Это учёт возможного шума или неточностей декодирования.
 NOIZE_FILTER_PAUSE = 4
 BASE_NOTE = 60
-PATH_TO_PDF = "../media/pdf/temp/"
+PATH_TO_PDF = f"{MEDIA_ROOT}/pdf/"
 
 
 # Исходя из того, что длительность звука не может быть равной 50мс или 25мс,
@@ -53,7 +54,7 @@ class Notes:
         self.filterData = []
         self.data = []
         self.notes = abjad.Container()
-        self.inputData = deepcopy(melody.data)
+        self.inputData = deepcopy(melody)
         # self.freqList = []
         # for i, sound in enumerate(melody.data):
         #     if i == 0:
