@@ -28,6 +28,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('upload/', views.upload, name='upload'),
+    path('api/', include('music_api.urls')),
     path('', views.home, name='home'),
 ]
 

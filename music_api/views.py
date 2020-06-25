@@ -4,13 +4,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from django.contrib.auth.decorators import login_required
-import tempfile
 from hyper_music.settings import MEDIA_ROOT
 
 # Own views are here
 from .forms import MelodyForm, CreateUserForm
+from .serializers import MelodySerializer
 from app_code.models import Notes, CodeMelody
 from music_api.models import Melody
 
@@ -92,3 +94,10 @@ def upload(request):
             return redirect('profile')
 
     return render(request, 'upload.html', {'form': form})
+
+
+class MelodyView(APIView):
+    def get(self, request):
+        melodys = Melody.objects.all()
+        serializer = MelodySerializer(melodys, many=True)
+        return Response({"melodys": serializer.data})
