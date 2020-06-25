@@ -3,6 +3,7 @@ from copy import deepcopy
 import abjad
 from .WAVconverter import audio_analyzer
 from hyper_music.settings import MEDIA_ROOT
+import app_code.music_descriptors as md
 
 
 # import mingus.extra
@@ -10,25 +11,18 @@ from hyper_music.settings import MEDIA_ROOT
 
 
 class CodeMelody:
+    data = md.MusicDataValidator()
+    path = md.MusicPathValidator()
+
     def __init__(self, path):
         self.path = path
-        self.data = None
-
-    def dataToArray(self):
-        return audio_analyzer(self.path)
+        self.data = audio_analyzer(self.path)
 
     def __str__(self):
         return str(self.data)
 
     def __iter__(self):
         return iter(self.data)
-
-    def del_two_last(self):
-        del self.data[-1]
-        del self.data[-1]
-
-    def for_test(self, data):
-        self.data = data
 
 
 # FREQ_NOTE = 4

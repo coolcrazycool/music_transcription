@@ -85,7 +85,7 @@ def upload(request):
             form.save()
             obj = Melody.objects.latest('id')
             NOTES = CodeMelody(f'{MEDIA_ROOT}/{obj.melody}')
-            data = NOTES.dataToArray()
+            data = NOTES.data
             PDF = Notes(data)
             pdf = PDF.converteToPdf(f'{obj.melody}'.split('/')[-1].split('.')[0])
             obj.pdf.name = f'pdf/{pdf}.pdf'
