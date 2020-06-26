@@ -92,6 +92,8 @@ def upload(request):
             obj.status = 'Converted'
             obj.save()
             return redirect('profile')
+        else:
+            messages.info(request, 'Invalid data type')
 
     return render(request, 'upload.html', {'form': form})
 

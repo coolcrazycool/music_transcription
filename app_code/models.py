@@ -4,6 +4,8 @@ import abjad
 from .WAVconverter import audio_analyzer
 from hyper_music.settings import MEDIA_ROOT
 import app_code.music_descriptors as md
+import logging
+from log.logger import logger_s, logger_e, handler_errors, handler_success, decorated_log
 
 
 # import mingus.extra
@@ -14,7 +16,10 @@ class CodeMelody:
     data = md.MusicDataValidator()
     path = md.MusicPathValidator()
 
+    @decorated_log
     def __init__(self, path):
+        self.logger_s = logging.getLogger('music_success')
+        self.logger_e = logging.getLogger("music_errors")
         self.path = path
         self.data = audio_analyzer(self.path)
 
@@ -23,6 +28,10 @@ class CodeMelody:
 
     def __iter__(self):
         return iter(self.data)
+
+    def __del__(self):
+        handler_errors.close()
+        handler_success.close()
 
 
 # FREQ_NOTE = 4

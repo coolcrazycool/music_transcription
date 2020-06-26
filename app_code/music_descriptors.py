@@ -1,3 +1,6 @@
+from log.logger import decorated_log
+
+
 class AutoStorageDescriptor:
     def __set_name__(self, owner, name):
         self.name = name
@@ -27,8 +30,12 @@ class MusicDataValidator(Validated):
         return value
 
 
+@decorated_log
 class MusicPathValidator(Validated):
     def validate(self, instance, value):
-        return value
+        file_type = value.split('.')[-1]
+        if file_type == 'wav':
+            return value
+        raise NameError("Invalid data type")
 
 
