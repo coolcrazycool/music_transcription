@@ -2,9 +2,6 @@ from scipy.io import wavfile
 from collections import deque
 from scipy.fft import fft, ifft
 import numpy as np
-# from scipy import signal
-# from matplotlib import pyplot as plt
-# import pandas as pd
 
 # путь к рандомному файлу
 audio_way = '../dataset/sound.wav'
@@ -60,20 +57,6 @@ def segmentation(audio, sr):
     return frames
 
 
-# def base_spectrogram(audio_path):
-#     sr, audio = wavfile.read(audio_path)
-#     audio = np.array(audio[:, 0]).transpose()
-#     frequencies, times, spectrogram = signal.spectrogram(audio, sr)
-#     plt.pcolormesh(times, frequencies, spectrogram)
-#     plt.imshow(spectrogram)
-#     plt.ylabel('Frequency [Hz]')
-#     plt.xlabel('Time [sec]')
-#     plt.show()
-#     plt.axis('off')
-#     plt.savefig(f'../temp_spectrogramm/{audio_path[11:]}.png')
-#     plt.close()
-
-
 def estimate_pitch(y, sr, fmin=10.0, fmax=1000.0):
     max_size = None
     axis = -1
@@ -118,9 +101,6 @@ def matrix_converter(data):
             pd_matr. append([data[i], 1])
             continue
         pd_matr[-1][1] += 1
-
-    # for el in pd_matr[::-1]:
-        # pd_matr[pd_matr.index(el)][1] *= int(segment_time*1000)
     return pd_matr
 
 
