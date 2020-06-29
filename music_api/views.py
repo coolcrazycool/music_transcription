@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.forms import UserCreationForm
 from django.core.files.storage import FileSystemStorage
@@ -84,18 +84,30 @@ def upload(request):
             melody_pr.status = 'Uploaded'
             form.save()
             obj = Melody.objects.latest('id')
-            NOTES = CodeMelody(f'{MEDIA_ROOT}/{obj.melody}')
-            data = NOTES.data
-            PDF = Notes(data)
-            pdf = PDF.converteToPdf(f'{obj.melody}'.split('/')[-1].split('.')[0])
-            obj.pdf.name = f'pdf/{pdf}.pdf'
-            obj.status = 'Converted'
+            # NOTES = CodeMelody(f'{MEDIA_ROOT}/{obj.melody}')
+            # data = NOTES.data
+            # PDF = Notes(data)
+            # pdf = PDF.converteToPdf(f'{obj.melody}'.split('/')[-1].split('.')[0])
+            # obj.pdf.name = f'pdf/{pdf}.pdf'
+            # obj.status = 'Converted'
+            obj.status = 'Uploaded'
             obj.save()
             return redirect('profile')
         else:
             messages.info(request, 'Invalid data type')
 
     return render(request, 'upload.html', {'form': form})
+
+def converte(request, pk):
+    melody = get_object_or_404(Melody, pk=pk)
+    NOTES = CodeMelody(f'{MEDIA_ROOT}/{melody.melody}')
+    data = NOTES.data
+    PDF = Notes(data)
+    pdf = PDF.converteToPdf(f'{melody.melody}'.split('/')[-1].split('.')[0])
+    melody.pdf.name = f'pdf/{pdf}.pdf'
+    melody.status = 'Converted'
+    melody.save()
+    return redirect('profile')
 
 
 class MelodyView(APIView):
