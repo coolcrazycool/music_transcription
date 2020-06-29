@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
+from django.conf.urls import url
 from django.conf import settings
 
 from music_api import views
@@ -30,6 +31,8 @@ urlpatterns = [
     path('upload/', views.upload, name='upload'),
     path('api/', include('music_api.urls')),
     path('', views.home, name='home'),
+
+    url(r'^converte/(?P<pk>\d+)/$', views.converte, name="converte"),
 ]
 
 if settings.DEBUG:
