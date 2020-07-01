@@ -1,2 +1,4 @@
 logger.py[LINE:54]# ERROR    [2020-06-26 07:44:31,888]  Invalid data type
 logger.py[LINE:54]# ERROR    [2020-06-26 07:45:18,997]  Invalid data type
+logger.py[LINE:37]# ERROR    [2020-06-29 10:33:57,627]  Ошибка с типом данных
+logger.py[LINE:37]# ERROR    [2020-06-30 11:27:37,001]  Ошибка с типом данных

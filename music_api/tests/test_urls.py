@@ -1,8 +1,9 @@
-from django.test import SimpleTestCase
+#import unittests
+from django.test import TestCase
 from django.urls import reverse, resolve
 from music_api.views import MelodyView
 
-class TestUrl(SimpleTestCase):
+class TestUrl(TestCase):
 
     def test_melodys_url_is_resolved(self):
         url = reverse('melodys')
