@@ -18,10 +18,10 @@
                     {% for melody in melodys %}
                         <tr>
                             <td>{{ melody.name }}</td>
-                            <td><a href="http://127.0.0.1:8000/media/{{ melody.melody }}">Скачать</a></td>
+                            <td><a href="http://music-transcription.herokuapp.com/media/{{ melody.melody }}">Скачать</a></td>
                             <td>{{ melody.status }}</td>
                             {% if melody.pdf %}
-                                <td><a href="http://127.0.0.1:8000/media/{{ melody.pdf }}">Скачать</a></td>
+                                <td><a href="http://music-transcription.herokuapp.com/media/{{ melody.pdf }}">Скачать</a></td>
 
                             {% else %}
                                 <td><a href="{% url 'converte' pk=melody.pk %}"> Конвертировать</a>

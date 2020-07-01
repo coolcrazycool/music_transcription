@@ -5,22 +5,29 @@ services:
     image: postgres:13
     container_name: postgres
     volumes:
-    - ./postgres-data:/var/lib/postgres/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    - ./postgres_data:/var/lib/postgres/data
+    env_file:
+      - ./.env.prod.db
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn hyper_music.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
+      - media_volume:/code/media
+    expose:
+      - 8000
     env_file:
-      - ./.env.dev
+      - ./.env.prod
     depends_on:
       - db
+  nginx:
+    build: ./nginx
+    volumes:
+    - media_volume:/code/media
+    ports:
+      - 8000:80
+    depends_on:
+      - web
 
 volumes:
-  postgres-data:
+  postgres_data:
+  media_volume:
