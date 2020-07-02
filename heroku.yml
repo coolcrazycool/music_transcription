@@ -1,0 +1,11 @@
+setup:
+  addons:
+    - plan: heroku-postgres
+      as: DATABASE
+build:
+  docker:
+    web: Dockerfile
+release:
+  python manage.py migrate
+run:
+  gunicorn hyper_music.wsgi
