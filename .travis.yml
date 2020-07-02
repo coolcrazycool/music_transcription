@@ -7,7 +7,7 @@ language: python
 
 script:
   - python -m pytest -v
-  - python manage.py test music_api
+  - python manage.py tests music_api
 after_success:
   - sh .travis/deploy_dockerhub.sh
   - test “$TRAVIS_BRANCH” = “master” && sh .travis/deploy_heroku.sh
