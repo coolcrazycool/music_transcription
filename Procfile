@@ -1,1 +1,2 @@
-web: gunicorn hyper_music.wsgi --log-file -
+release: python manage.py migrate
+web: gunicorn hyper_music.wsgi
