@@ -6,7 +6,7 @@ services:
 language: python
 
 script:
-  - python -m pytest -v
+  - python manage.py test
 
 after_success:
   - sh .travis/deploy_dockerhub.sh
