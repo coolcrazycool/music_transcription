@@ -8,10 +8,6 @@ services:
   - docker
   - postgresql
 
-branches:
-  only:
-    - master
-
 before_script:
   - pip install docker-compose
   - docker-compose up -d --build
@@ -35,3 +31,5 @@ deploy:
   api_key:
     secure: ac593baf-0fb9-45ec-8ad1-b73a166c0f7a
   app: mus-trans
+  on:
+    repo: coolcrazycool/music_transcription
