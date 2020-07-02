@@ -1,16 +1,24 @@
 sudo: required
-
-services:
-  - docker
-
 language: python
 
 python:
-  - 3.6
+  - "3.6"
+
+services:
+  - docker
+  - postgresql
+
+branches:
+  only:
+    - master
+
+before_script:
+  - pip install docker-compose
+  - docker-compose -d --build
 
 script:
+#  - docker-compose run app sh -c "python manage.py test"
   - python -m pytest -v
 
-after_success:
-  - sh .travis/deploy_dockerhub.sh
-  - test “$TRAVIS_BRANCH” = “master” && sh .travis/deploy_heroku.sh
+after_script:
+  - docker-compose down
