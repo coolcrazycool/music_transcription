@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "not-so-secret-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'music-trans.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mus-trans.herokuapp.com']
 
 
 # Application definition
