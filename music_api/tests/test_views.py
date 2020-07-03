@@ -4,6 +4,7 @@ from music_api.forms import CreateUserForm, MelodyForm
 from music_api.models import Melody
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
+from pytest.ini import DJANGO_SETTINGS_MODULE
 
 import json
 

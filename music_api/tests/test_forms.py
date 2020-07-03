@@ -3,7 +3,7 @@ from music_api.forms import MelodyForm, CreateUserForm
 from django.contrib.auth.models import User
 from django.test import Client
 from django.contrib.auth import authenticate
-
+from pytest.ini import DJANGO_SETTINGS_MODULE
 class TestModels(TestCase ):
 
     def test_user_form_correct_data(self):

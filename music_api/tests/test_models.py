@@ -1,6 +1,7 @@
 from music_api.models import Melody
 from django.test import TestCase
 from django.contrib.auth.models import User
+from pytest.ini import DJANGO_SETTINGS_MODULE
 
 class TestModels(TestCase ):
 
