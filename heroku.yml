@@ -1,8 +1,6 @@
 build:
   docker:
-    web: Dockerfile
-    nginx: ./nginx/Dockerfile
+    web: docker-compose up
 
 run:
-  web: docker-compose up
-  db: docker-compose exec web python manage.py migrate
+  web: gunicorn -w 4 hyper_music.wsgi:application --bind 0.0.0.0:$PORT
