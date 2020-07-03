@@ -95,13 +95,9 @@ DATABASES = {
 }
 
 
-"""
-Heroku database settings. Uncomment when you want to use it.
-Put this below the DATABASE={ ... } configuration.
-"""
-db_from_env = dj_database_url.config()
+DATABASE_URL = os.environ.get('DATABASE_URL')
+db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
 DATABASES['default'].update(db_from_env)
-DATABASES['default']['CONN_MAX_AGE'] = 500
 
 
 # Password validation
