@@ -31,3 +31,4 @@ deploy:
   on:
     repo: coolcrazycool/music_transcription
     branch: master
+  skip_cleanup: true

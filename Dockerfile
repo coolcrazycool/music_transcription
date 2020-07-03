@@ -15,4 +15,6 @@ RUN pip install -r requirements.txt
 
 COPY . /code/
 
-CMD gunicorn hyper_music.wsgi:application --bind 0.0.0.0:$PORT
+CMD docker-compose up -d --build
+CMD docker-compose up
+CMD docker-compose exec web python manage.py migrate
