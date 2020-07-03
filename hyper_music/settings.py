@@ -85,12 +85,12 @@ WSGI_APPLICATION = 'hyper_music.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("DATABASE_NAME", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("DATABASE_USER", "user"),
-        "PASSWORD": os.environ.get("DATABASE_PASSWORD", "password"),
-        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
-        "PORT": os.environ.get("DATABASE_PORT", "5432"),
+        "ENGINE": os.environ.get("django.db.backends.postgresql_psycopg2", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("darmkmfbnddjnl", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("iahfqvydnuipqf", "user"),
+        "PASSWORD": os.environ.get("6e16ea9e7059a18153a9c812df7d0214e95d5dbbc5218a2ad35c9b9b63129691", "password"),
+        "HOST": os.environ.get("ec2-184-72-236-57.compute-1.amazonaws.com", "localhost"),
+        "PORT": os.environ.get("5432", "5432"),
     }
 }
 
