@@ -31,7 +31,3 @@ deploy:
   on:
     repo: coolcrazycool/music_transcription
     branch: master
-  run:
-    - "docker-compose up -d --build"
-    - "docker-compose up"
-    - "docker-compose exec web python manage.py migrate"
