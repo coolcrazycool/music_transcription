@@ -21,8 +21,6 @@ before_script:
 script:
 #- docker-compose exec web python manage.py test
 - python -m pytest -v
-after_script:
-- docker-compose down
 deploy:
   provider: heroku
   api_key:
