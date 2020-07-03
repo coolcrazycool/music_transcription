@@ -19,7 +19,7 @@ branches:
 
 before_script:
   - pip install docker-compose
-  - docker-compose -d --build
+  - docker-compose up -d --build
 
 script:
 #  - docker-compose run app sh -c "python manage.py test"
