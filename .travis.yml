@@ -1,37 +1,34 @@
-sudo: required
+sudo: false
 language: python
-
+cache: pip
 python:
-  - "3.6"
-
+- '3.6'
+addons:
+  postgresql: '13'
 services:
-  - docker
-  - postgresql
-env:
-  DOCKER_COMPOSE_VERSION=1.4.2
-
+- docker
+- postgresql
+env: DOCKER_COMPOSE_VERSION=1.4.2
 install:
-  - pip install -r requirements.txt
-
+- pip install -r requirements.txt
 branches:
   only:
-    - master
-
+  - master
 before_script:
-  - pip install docker-compose
-  - docker-compose up -d --build
-
+- pip install docker-compose
+- docker-compose up -d --build
+- docker-compose exec web python manage.py migrate
+- psql -c 'create database travis_ci_test;' -U postgres
 script:
-#  - docker-compose run app sh -c "python manage.py test"
-  - python -m pytest -v
-
+- docker-compose exec web python manage.py test
+- python -m pytest -v
 after_script:
-  - docker-compose down
-
+- docker-compose down
 deploy:
   provider: heroku
   api_key:
-    secure: ac593baf-0fb9-45ec-8ad1-b73a166c0f7a
+    secure: ia2Ebzhk+xKWq2SU7nnTCwcoWP8YDp7+oIXB7VKpylcNTWUSTqj3XyLCYdolBGLUuzvHIfMojdkv+O6gaEDZX+lxrmV0Hqjt1DY8XkxHD7BKG36b+DXRQ4wju0W2OClqD5mI2UZ2sUgwt3Sf4ZsAc/ek4J85JD4ws6d9xFAdArom6rXZHE8DyrRSWW5404w1UAfMyWor6VaI9pK+AjtD22G/yJkU9TAM3MwYmsvl9cy0t72GH+6OfXd1LluqlrWF/8YF+M0zjIxmCKNWAM2GTAR74ByrmYo8mIFZ3lu719HOO9Gtve+Pr+NvSkdOt+tSYI/LNlLDuvps+/cDC0DEJnu7Lf34KnyCv3AjQGDdFJnYj4URLtwkMdagvMfVlmGfP+zBYe4e7ImFSGefeSMJ9EF1qYbefxLLzqc9SG+SyZlEi5QeETdoAhGThwLMKp3dh5VbaPVLFksjNX9tZR+0kqe/2WFM+b//pEmgLpSfobM/Jmez7JSqMfg0LvrLaZgjnjXMJvL32ttdxlQXwmPo48wKZ1hTMYQhuQU7p8NivqJqG7YFYvxXbt3OWj3cdUI06Fkxf97yEBBeJ5ntP1GwcJsWgbZWLmaoOuMvtwM7VVDuw33+t/PVxgGvldLT0p7P286Iw6giPaJpdWSGGuAHTZ8wauHVyC0DGbxBEjzn8u8=
   app: mus-trans
   on:
     repo: coolcrazycool/music_transcription
+    branch: master
