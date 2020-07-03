@@ -14,3 +14,5 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
 COPY . /code/
+
+CMD gunicorn -w 4 hyper_music.wsgi:application -b :8000
