@@ -28,7 +28,7 @@ services:
     - media_volume:/code/media
     - static_volume:/code/staticfiles
     ports:
-      - 80:80
+      - 8000:80
     depends_on:
       - web
 
