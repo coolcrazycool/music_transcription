@@ -23,9 +23,7 @@ services:
     depends_on:
       - db
   nginx:
-    build:
-      context: .
-      dockerfile: ./nginx/Dockerfile
+    build: ./nginx/
     volumes:
     - media_volume:/code/media
     - static_volume:/code/staticfiles
