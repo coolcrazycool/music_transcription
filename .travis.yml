@@ -14,7 +14,9 @@ services:
 - docker
 - postgresql
 -
-env: DOCKER_COMPOSE_VERSION=1.4.2
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
+  - DJANGO_SETTINGS_MODULE=hyper_music.settings
 
 install:
 - pip install -r requirements.txt
