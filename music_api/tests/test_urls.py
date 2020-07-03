@@ -2,7 +2,6 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
 from music_api.views import MelodyView
-from pytest.ini import DJANGO_SETTINGS_MODULE
 
 class TestUrl(TestCase):
 
