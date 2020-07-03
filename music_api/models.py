@@ -16,5 +16,6 @@ class Melody(models.Model):
     status = models.CharField(max_length=200, null=True, choices=STATUS, blank=True)
     pdf = models.FileField(upload_to="pdf/%Y/%m/%d", null=True, blank=True)
 
+
     def __str__(self):
         return self.name
