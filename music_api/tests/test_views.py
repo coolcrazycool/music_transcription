@@ -120,8 +120,5 @@ class TestViews(TestCase):
         self.login_user()
         response = self.client.post(self.upload, self.melodydata)
         #print(Melody.objects.latest('name'))
-
-
         #self.assertEquals(response.status_code, 302)
-
     '''
