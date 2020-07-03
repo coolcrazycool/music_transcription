@@ -2,8 +2,5 @@ build:
   docker:
     web: Dockerfile
     nginx: ./nginx/Dockerfile
-release:
-  image: nginx
-  command: -a mus-trans nginx
 run:
   web: gunicorn -w 4 hyper_music.wsgi:application -b :$PORT
