@@ -1,4 +1,4 @@
-FROM python:3.8.3
+FROM python:3.6.10
 MAINTAINER HyperProject Inc
 
 ENV PYTHONUNBUFFERED 1

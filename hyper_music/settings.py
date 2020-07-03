@@ -26,9 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY", "not-so-secret-key")
 # SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=1))
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'music-trans.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mus-trans.herokuapp.com']
 
 
 # Application definition
@@ -57,6 +57,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'hyper_music.urls'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/staticfiles/'
 
 TEMPLATES = [
     {

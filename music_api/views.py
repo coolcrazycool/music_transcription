@@ -76,7 +76,9 @@ def upload(request):
     form = MelodyForm()
     if request.method == 'POST':
         form = MelodyForm(request.POST, request.FILES)
-        if form.is_valid():
+        # try:
+        mel = str(request.FILES['melody'])
+        if form.is_ok(mel):
             melody_pr = form.save(commit=False)
             melody_pr.melody = request.FILES['melody']
             melody_pr.name = request.POST['name']
@@ -84,17 +86,13 @@ def upload(request):
             melody_pr.status = 'Uploaded'
             form.save()
             obj = Melody.objects.latest('id')
-            # NOTES = CodeMelody(f'{MEDIA_ROOT}/{obj.melody}')
-            # data = NOTES.data
-            # PDF = Notes(data)
-            # pdf = PDF.converteToPdf(f'{obj.melody}'.split('/')[-1].split('.')[0])
-            # obj.pdf.name = f'pdf/{pdf}.pdf'
-            # obj.status = 'Converted'
             obj.status = 'Uploaded'
             obj.save()
             return redirect('profile')
+        # except Exception as e:
+        # raise forms.ValidationError('Can not identify file type')
         else:
-            messages.info(request, 'Invalid data type')
+            messages.info(request, 'Invalid data type. Only wav')
 
     return render(request, 'upload.html', {'form': form})
 
