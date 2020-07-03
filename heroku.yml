@@ -1,10 +1,6 @@
-setup:
-  addons: heroku-postgresql
-
 build:
   docker:
-    web: Dockerfile
-    nginx: ./nginx/Dockerfile
+    web: docker-compose.yml
 run:
   web:
     - gunicorn -w 4 hyper_music.wsgi:application --bind 0.0.0.0:$PORT
