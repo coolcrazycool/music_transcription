@@ -1,0 +1,37 @@
+sudo: required
+language: python
+
+python:
+  - "3.6"
+
+services:
+  - docker
+  - postgresql
+env:
+  DOCKER_COMPOSE_VERSION=1.4.2
+
+install:
+  - pip install -r requirements.txt
+
+branches:
+  only:
+    - master
+
+before_script:
+  - pip install docker-compose
+  - docker-compose -d --build
+
+script:
+#  - docker-compose run app sh -c "python manage.py test"
+  - python -m pytest -v
+
+after_script:
+  - docker-compose down
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: ac593baf-0fb9-45ec-8ad1-b73a166c0f7a
+  app: mus-trans
+  on:
+    repo: coolcrazycool/music_transcription
