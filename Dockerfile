@@ -15,6 +15,4 @@ RUN pip install -r requirements.txt
 
 COPY . /code/
 
-EXPOSE 8000
-
-CMD gunicorn -w 4 hyper_music.wsgi:application -b :8000
+EXPOSE $PORT
