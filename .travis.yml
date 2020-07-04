@@ -1,39 +1,36 @@
 sudo: false
-
 language: python
-
 cache: pip
-
 python:
-  - '3.6'
-  -
+- '3.6'
 addons:
   postgresql: '13'
-
 services:
 - docker
 - postgresql
--
-env: DOCKER_COMPOSE_VERSION=1.4.2
-
+env:
+  matrix:
+  - DOCKER_COMPOSE_VERSION=1.4.2
+  global:
+  # DOCKER_EMAIL
+  - secure: WK53qgW6T+JIr2cl2skUCSH4IxsN4WmdYcD8qh718RC7PkZAH6UbGsPSd3GD44YGt1MUmBdg7qedxvFn0xMl+Sv62MiqbSRrnK1wk3fwvuxk19+pciTRnQBayTw5A5doykA+QIpyswe8hrRYptTr11SkY8oY530aUXMHcPRj2pbXvgxzeAfLHiPozv9Sj93255jHycSerEjt4ljoBXiVUXxemNuB/TzW2I8jbrx6RHb8/wO1sqyLOxHyAznhKbqjPhfmj7kxdgJ9FsMkmGLHp/EUJnh82DNdf/k5nePRaRg20AF35XEYDa2X1XnENtXN1R3XEWfSWMJVJ9mPsM0phN4GAIL+BpJBlD/Q0Z+qiR09U2RNrlWjW9W5HvIb+rSiX4i2NUeLegUYsxXkmp89h9avuCu3cQLpA/FRo7pfHtsNx79dbuQwiMu3Fy24P0Rbi3/svLGEhB/SxZdtDAmeDemTUzQT0R7jAGqVhCNzxv/FRn+x9ThhR+YDkRnxZH6fbvGAd6PWinte8fpr5aN6HvKouC2i5QzdN9h2tesyn3hcCHDpf/y1o0kD6/KXO+503oHlCmVYxVNy/isqJbqJ8lh9tAt0BVFtZ2/alz9gCDG+zADwgZ+2zHpm68ijsk3TzYEhIG+OnlDKPNTtTZq1LETNE5wecVGUrfi74xgsl/Y=
+  # DOCKER_USER
+  - secure: GWBXWatpGUQQRpAASzk/XGPzn4ibELVMXfEw+grIyuJ7gndKddnk/IHKTp1ucMe95gmHoZN1oaL32hOXHn7T0za5tnjnhDJ3GnWe3cKkOs3t7x7E+NPU7Gbuv9zu0Q5skFZoCTTIJyKMxP9LbeYhtW6+RoGeuRuRsSlt9wgRMysjgD852gfQo0c1pjDyxWvitZORZ2/ovRv13MD2DTxaZTG5TB9AlnkXUvEaFRzUAQaDXm8d/tr1E/EErs4oDWMcj1lHFZy6KFihYW1Uvsx7G7OEaWMi2sy+D/KZDXlfcE5oGOVjb44tAeZTJGzjIO7SO0CvKdNSt9vNwLT8asXtgLJr4ALez9gsJ0W7/IC0NDOoKtcmMy3c20sWh2+ZI25yegAcSICr0pajrtGXbmEMFpcDTgeHdu1iEujbci9vSPtU/rSnzFlrbtFHXHHQrrgecVxbAT+8Lvbh1rDOSRBpF1DfdlC8gHcp/i3AQpp+lRqN+S+G5ReYMmjJi3+8bT7xVZxJ0qocjvipDvOuk+jVzy7JSNwn9CZ6kVLyY/tj5C0VMjcw4Tx9pXGRSMgr4WZ7dnMZsvnaje1OfJV8z+U8ybFYz35Op+UtQAuHe1VQNyFhs9Y/5zhwYurIWTVfnqcecFfy2LDHY9UIhUABwUSjo5SGHOgETbkdRSKjpcnGED8=
+  # DOCKER_PASS
+  - secure: i4lInk+Hn0jIvenHXt0I4YqSz2N6+519VIqztzCMTKsPkQTZpI6UZD2FlYbAFAwrD9/I+gIQ4F6qgaAmuDIEE0lyt9WhEgmm/F50JqTMh8bheSha3lPrpc/4O4lWHuf5suU7/TnkYzurWL9b+U3OAQNMvihbuNVEdH30AIo8vctOLTvj6i0jnGGt4XqnGENL/TNUt8OYMJSViH21fJuRaIzXyPg6fafBVgrZCyn+Mh63WX4/ytCLw1S+7PsTtGymWPnPevedBiYFa/5Cz28fmAjsKyb6lOgeAuWOGc3BzFehfg8vny1fGuuadWYwrbLIGxrgtL9ahwbQL+9JZD5nP5bgeEUn07iZq3edwuk7cxwxBrsI+PggrJJS0jP61rU0YbGmtK4aGimLuEIpPzgUzrC/DYyRZi6LhOBvvDxYzdmSeitbMNNK63IIWErzv5S1Wck+1qSZnhIYCNgtUUcxjqZCGcEdO2/F2COktKJlk08Zd960nddDnpA5MUZmEIUZkK91X61kkZ3LV0riCaWC4N+Z8n1jRKL12NdIa3vj/KbT/VljwJMASU1+E3BACQfPMdWEUynTbX5qxH0vci5dJgBUsXoAojXy8s6ogOcfiXqMqQD7IJlQtIam7y/DOB9NKtYVLsdjm19aPm3J1yebKdsV2E3wkvarpEN/oekYznI=
 install:
-- pip install -r requirements.txt
-
+  - pip install -r requirements.txt
 branches:
   only:
-  - master
-  - onemore_tests
-
+    - master
+    - onemore_tests
 before_script:
   - pip install docker-compose
   - docker-compose up -d --build
   - docker-compose exec web python manage.py migrate
   - docker-compose exec web python manage.py collectstatic
-
 script:
-  #- docker-compose exec web python manage.py test
   - python -m pytest -v
-
 deploy:
   provider: heroku
   api_key:
