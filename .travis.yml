@@ -12,7 +12,7 @@ services:
 env:
   matrix:
   - DOCKER_COMPOSE_VERSION=1.4.2
-  - - DJANGO_SETTINGS_MODULE=hyper_music.settings
+  - DJANGO_SETTINGS_MODULE=hyper_music.settings
   global:
   # DOCKER_EMAIL
   - secure: WK53qgW6T+JIr2cl2skUCSH4IxsN4WmdYcD8qh718RC7PkZAH6UbGsPSd3GD44YGt1MUmBdg7qedxvFn0xMl+Sv62MiqbSRrnK1wk3fwvuxk19+pciTRnQBayTw5A5doykA+QIpyswe8hrRYptTr11SkY8oY530aUXMHcPRj2pbXvgxzeAfLHiPozv9Sj93255jHycSerEjt4ljoBXiVUXxemNuB/TzW2I8jbrx6RHb8/wO1sqyLOxHyAznhKbqjPhfmj7kxdgJ9FsMkmGLHp/EUJnh82DNdf/k5nePRaRg20AF35XEYDa2X1XnENtXN1R3XEWfSWMJVJ9mPsM0phN4GAIL+BpJBlD/Q0Z+qiR09U2RNrlWjW9W5HvIb+rSiX4i2NUeLegUYsxXkmp89h9avuCu3cQLpA/FRo7pfHtsNx79dbuQwiMu3Fy24P0Rbi3/svLGEhB/SxZdtDAmeDemTUzQT0R7jAGqVhCNzxv/FRn+x9ThhR+YDkRnxZH6fbvGAd6PWinte8fpr5aN6HvKouC2i5QzdN9h2tesyn3hcCHDpf/y1o0kD6/KXO+503oHlCmVYxVNy/isqJbqJ8lh9tAt0BVFtZ2/alz9gCDG+zADwgZ+2zHpm68ijsk3TzYEhIG+OnlDKPNTtTZq1LETNE5wecVGUrfi74xgsl/Y=
