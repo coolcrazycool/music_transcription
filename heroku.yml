@@ -6,5 +6,7 @@ run:
   web: gunicorn -w 4 hyper_music.wsgi:application -b :$PORT
   nginx:
     command:
+      - apt-get install python-pip
+      - pip install docker-compose
       - docker-compose -f docker-compose.yml up -d --build
       - docker-compose -f docker-compose.yml up
