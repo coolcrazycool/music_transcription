@@ -3,5 +3,5 @@ build:
     web: Dockerfile
     nginx: ./nginx/Dockerfile
 run:
-  web: gunicorn -w 4 hyper_music.wsgi:application -b :$PORT
+  web: gunicorn -w 4 hyper_music.wsgi:application -b :8000
   nginx: sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/nginx.conf && nginx -g 'daemon off;'
