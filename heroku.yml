@@ -4,3 +4,7 @@ build:
     nginx: ./nginx/Dockerfile
 run:
   web: gunicorn -w 4 hyper_music.wsgi:application -b :$PORT
+  nginx:
+    command:
+      - docker-compose -f docker-compose.yml up -d --build
+      - docker-compose -f docker-compose.yml up
